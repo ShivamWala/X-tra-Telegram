@@ -107,17 +107,17 @@ if Var.PRIVATE_GROUP_ID is not None:
 
     async def do_pm_permit_action(chat_id, event):
         if event.is_private:
-            if not response.text.startswith("/start"):
+            if not reply.text.startswith("/start"):
                 return
-            elif not response.text.startswith("1"):
+            elif not reply.text.startswith("1"):
                 return
-            elif not response.text.startswith("2"):
+            elif not reply.text.startswith("2"):
                 return
-            elif not response.text.startswith("3"):
+            elif not reply.text.startswith("3"):
                 return
-            elif not response.text.startswith("4"):
+            elif not reply.text.startswith("4"):
                 return
-            elif not response.text.startswith("5"):
+            elif not reply.text.startswith("5"):
                 return
             else:
                 if chat_id not in PM_WARNS:
