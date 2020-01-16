@@ -100,24 +100,38 @@ if Var.PRIVATE_GROUP_ID is not None:
             # https://core.telegram.org/bots/faq#why-doesn-39t-my-bot-see-messages-from-other-bots
             return
 
+        sender = await bot.get_entity(chat_id)
+        if chat_id == bot.uid:
+            # don't log Saved Messages
+            return
+        if sender.bot:
+            # don't log bots
+            return
+        if sender.verified:
+            # don't log verified accounts
+            return
 
         if not pmpermit_sql.is_approved(chat_id):
             # pm permit
             await do_pm_permit_action(chat_id, event)
 
     async def do_pm_permit_action(chat_id, event):
+        chat = await event.get_chat()
+        chat_id = event.from_id
         if event.is_private:
-            if not reply.text.startswith("/start"):
+         async with borg.conversation(chat) as conv:
+            response = await conv.get_response(chat)
+            if not response.text.startswith ("/start"):
                 return
-            elif not reply.text.startswith("1"):
+            elif not response.text.startswith ("1"):
                 return
-            elif not reply.text.startswith("2"):
+            elif not response.text.startswith ("2"):
                 return
-            elif not reply.text.startswith("3"):
+            elif not response.text.startswith ("3"):
                 return
-            elif not reply.text.startswith("4"):
+            elif not response.text.startswith ("4"):
                 return
-            elif not reply.text.startswith("5"):
+            elif not response.text.startswith ("5"):
                 return
             else:
                 if chat_id not in PM_WARNS:
