@@ -117,7 +117,19 @@ if Var.PRIVATE_GROUP_ID is not None:
 
     async def do_pm_permit_action(chat_id, event):
         r = await event.reply(USER_BOT_NO_WARN)
-        if not reply.text.startswith "/start" or "1" or "2" or "3" or "4" or "5":
+        if not reply.text.startswith "/start":
+            return
+        elif not reply.text.startswith "1":
+            return
+        elif not reply.text.startswith "2":
+            return
+        elif not reply.text.startswith "3":
+            return
+        elif not reply.text.startswith "4":
+            return
+        elif not reply.text.startswith "5":
+            return
+        else:
             if chat_id not in PM_WARNS:
                 PM_WARNS.update({chat_id: 0})
             if PM_WARNS[chat_id] == 5:
