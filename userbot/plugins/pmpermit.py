@@ -120,39 +120,52 @@ if Var.PRIVATE_GROUP_ID is not None:
         chat = await event.get_chat()
         chat_id = event.from_id
         if event.is_private:
-         async with borg.conversation(chat) as conv:
+        async with borg.conversation(chat) as conv:
             response = await conv.get_response(chat)
-		 if not response.text.startswith "/start" or "1" or "2" or "3" or "4" or "5":
-            if chat_id not in PM_WARNS:
-                PM_WARNS.update({chat_id: 0})
-            if PM_WARNS[chat_id] == 5:
-                r = await event.reply(USER_BOT_WARN_ZERO)
-                await asyncio.sleep(3)
-                await event.client(functions.contacts.BlockRequest(chat_id))
+			if not reply.text.startswith "/start":
+				return
+			elif not reply.text.startswith "1":
+				return
+			elif not reply.text.startswith "2":
+				return
+			elif not reply.text.startswith "3":
+				return
+			elif not reply.text.startswith "4":
+				return
+			elif not reply.text.startswith "5":
+				return
+			else:
+                if chat_id not in PM_WARNS:
+                    PM_WARNS.update({chat_id: 0})
+                if PM_WARNS[chat_id] == 5:
+                    r = await event.reply(USER_BOT_WARN_ZERO)
+                    await asyncio.sleep(3)
+                    await event.client(functions.contacts.BlockRequest(chat_id))
+                    if chat_id in PREV_REPLY_MESSAGE:
+                        await PREV_REPLY_MESSAGE[chat_id].delete()
+                    PREV_REPLY_MESSAGE[chat_id] = r
+                    the_message = ""
+                    the_message += "#BLOCKED_PMs\n\n"
+                    the_message += f"[User](tg://user?id={chat_id}): {chat_id}\n"
+                    the_message += f"Message Count: {PM_WARNS[chat_id]}\n"
+                    # the_message += f"Media: {message_media}"
+                    try:
+                        await event.client.send_message(
+                            entity=Var.PRIVATE_GROUP_ID,
+                            message=the_message,
+                            # reply_to=,
+                            # parse_mode="html",
+                            link_preview=False,
+                            # file=message_media,
+                            silent=True
+                        )
+                        return
+                    except:
+                        return
+                r = await event.reply(USER_BOT_NO_WARN)
+                PM_WARNS[chat_id] += 1
                 if chat_id in PREV_REPLY_MESSAGE:
                     await PREV_REPLY_MESSAGE[chat_id].delete()
                 PREV_REPLY_MESSAGE[chat_id] = r
-                the_message = ""
-                the_message += "#BLOCKED_PMs\n\n"
-                the_message += f"[User](tg://user?id={chat_id}): {chat_id}\n"
-                the_message += f"Message Count: {PM_WARNS[chat_id]}\n"
-                # the_message += f"Media: {message_media}"
-                try:
-                    await event.client.send_message(
-                        entity=Var.PRIVATE_GROUP_ID,
-                        message=the_message,
-                        # reply_to=,
-                        # parse_mode="html",
-                        link_preview=False,
-                        # file=message_media,
-                        silent=True
-                    )
-                    return
-                except:
-                    return
-            r = await event.reply(USER_BOT_NO_WARN)
-            PM_WARNS[chat_id] += 1
-            if chat_id in PREV_REPLY_MESSAGE:
-                await PREV_REPLY_MESSAGE[chat_id].delete()
-            PREV_REPLY_MESSAGE[chat_id] = r
-        
+            
+
