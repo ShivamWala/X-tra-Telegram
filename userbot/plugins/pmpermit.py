@@ -99,24 +99,13 @@ if Var.PRIVATE_GROUP_ID is not None:
             # userbot's should not reply to other userbot's
             # https://core.telegram.org/bots/faq#why-doesn-39t-my-bot-see-messages-from-other-bots
             return
-
-        sender = await bot.get_entity(chat_id)
-        if chat_id == bot.uid:
-            # don't log Saved Messages
-            return
-        if sender.bot:
-            # don't log bots
-            return
-        if sender.verified:
-            # don't log verified accounts
-            return
+        
 
         if not pmpermit_sql.is_approved(chat_id):
             # pm permit
             await do_pm_permit_action(chat_id, event)
 
     async def do_pm_permit_action(chat_id, event):
-        r = await event.reply(USER_BOT_NO_WARN)
         chat = await event.get_chat()
         chat_id = event.from_id
         if event.is_private:
