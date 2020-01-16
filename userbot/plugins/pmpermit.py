@@ -120,9 +120,9 @@ if Var.PRIVATE_GROUP_ID is not None:
         chat = await event.get_chat()
         chat_id = event.from_id
         if event.is_private:
-        async with borg.conversation(chat) as conv:
+         async with borg.conversation(chat) as conv:
             response = await conv.get_response(chat)
-			if not response.text.startswith "/start" or "1" or "2" or "3" or "4" or "5":
+		 if not response.text.startswith "/start" or "1" or "2" or "3" or "4" or "5":
                 if chat_id not in PM_WARNS:
                     PM_WARNS.update({chat_id: 0})
                 if PM_WARNS[chat_id] == 5:
