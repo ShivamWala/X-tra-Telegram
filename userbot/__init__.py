@@ -48,7 +48,7 @@ if bool(ENV):
     # Check if the config was edited by using the already used variable.
     # Basically, its the 'virginity check' for the config file ;)
     CONFIG_CHECK = os.environ.get(
-        "___________PLOX_______REMOVE_____THIS_____LINE__________", None)
+        "", None)
 
     if CONFIG_CHECK:
         LOGS.info(
@@ -57,14 +57,14 @@ if bool(ENV):
         quit(1)
 
     # Logging channel/group configuration.
-    BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID", None)
+    BOTLOG_CHATID = os.environ.get("BOTLOG_CHATID", "-1001419892378")
     try:
         BOTLOG_CHATID = int(BOTLOG_CHATID)
     except:
         pass
 
     # Userbot logging feature switch.
-    BOTLOG = sb(os.environ.get("BOTLOG", "False"))
+    BOTLOG = sb(os.environ.get("BOTLOG", "True"))
 
     # Bleep Blop, this is a bot ;)
     PM_AUTO_BAN = sb(os.environ.get("PM_AUTO_BAN", "False"))
@@ -76,17 +76,17 @@ if bool(ENV):
     DB_URI = os.environ.get("DATABASE_URL", None)
 
     # OCR API key
-    OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
+    OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", "8bc391a97888957")
 
     # remove.bg API key
-    REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", None)
+    REM_BG_API_KEY = os.environ.get("REM_BG_API_KEY", "B3qZ47LBDJW5r5F45K3Kz6P5")
 
     # Chrome Driver and Headless Google Chrome Binaries
     CHROME_DRIVER = os.environ.get("CHROME_DRIVER", None)
     GOOGLE_CHROME_BIN = os.environ.get("GOOGLE_CHROME_BIN", None)
 
     # OpenWeatherMap API Key
-    OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", None)
+    OPEN_WEATHER_MAP_APPID = os.environ.get("OPEN_WEATHER_MAP_APPID", "7fe0881419a4703e76db0a02425b1b16")
 
     # Anti Spambot Config
     ANTI_SPAMBOT = sb(os.environ.get("ANTI_SPAMBOT", "False"))
@@ -94,15 +94,15 @@ if bool(ENV):
     ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT", "False"))
 
     # Youtube API key
-    YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
+    YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", "AIzaSyCI26lFRwzf-SW0EuTM23SAPT2X7Z5IGWM")
 
     # Default .alive name
-    ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
+    ALIVE_NAME = os.environ.get("ALIVE_NAME", "Aniket")
     
     LESS_SPAMMY = os.environ.get("LESS_SPAMMY", True)
 
     # Time & Date - Country and Time Zone
-    COUNTRY = str(os.environ.get("COUNTRY", ""))
+    COUNTRY = str(os.environ.get("COUNTRY", "India"))
 
     TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
 
